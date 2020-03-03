@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -13,6 +14,16 @@ namespace sdg_api
     {
       CheckIns.Add(person);
       SaveChanges();
+    }
+
+    public List<CheckIn> GetPeople()
+    {
+      var allPeople = new List<CheckIn>();
+      foreach (var person in CheckIns)
+      {
+        allPeople.Add(person);
+      }
+      return allPeople;
     }
 
     public DatabaseContext()

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace sdg_api
 {
@@ -12,16 +13,6 @@ namespace sdg_api
 
   public class CheckINController : ControllerBase
   {
-
-    //[HttpGet("{newPerson}")]
-    // public string aNewPerson(string newPerson)
-    // {
-    //   var Db = new DatabaseContext();
-    //   var personToAdd = new CheckIn();
-    //   personToAdd.Name = newPerson;
-    //   Db.SaveNewPerson(personToAdd);
-    //   return "";
-    // }
 
     [HttpPost("{aNewPerson}")]
 
@@ -46,35 +37,25 @@ namespace sdg_api
       return SavedResult;
     }
 
-    //[HttpGet]
-    // public ActionResult PeopleCheckedIn()
-    // {
+    [HttpGet]
+    public ActionResult PeopleCheckedIn()
+    {
 
-    //var Db = new DatabaseContext();
-    // foreach (var person in CheckIn)
-    // {
+      var Db = new DatabaseContext();
+      var listOfPeople = new List<CheckIn>();
+      listOfPeople = Db.GetPeople();
 
-    // }
-    // var personToAdd = new CheckIn();
-    // personToAdd.Name = aNewPerson;
-    // Db.SaveNewPerson(personToAdd);
+      var json = JsonSerializer.Serialize(listOfPeople);
 
-    // var VerifyRecord = Db.CheckIns.First(x => x.Name == aNewPerson);
+      var SavedResult = new ContentResult()
+      {
+        Content = json,
+        ContentType = "application/json",
+        StatusCode = 201
+      };
 
-    //var json = JsonSerializer.Serialize(CheckIn);
-
-    // var SavedResult = new ContentResult()
-    // {
-    //   Content = json,
-    //   ContentType = "application/json",
-    //   StatusCode = 201
-    // };
-
-    //return "";
-
-
-
-    //}
+      return SavedResult;
+    }
 
   }
 }
